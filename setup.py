@@ -6,7 +6,7 @@ with io.open("README.md", encoding='utf-8') as f:
 
 setup(
     name="django-aieditor",
-    version="0.1.17",
+    version="0.1.19",
     packages=find_packages(),
     include_package_data=True,
     license="MIT",
