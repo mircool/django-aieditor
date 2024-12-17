@@ -1,6 +1,6 @@
 # Django-AiEditor
 
-Django-AiEditor 是一个为 Django 框架提供的 AiEditor 富文本编辑器集成包。AiEditor 是一个强大的 Web 富文本编辑器，支持 markdown 语法。
+Django-AiEditor 是一个为 Django 框架提供的 AiEditor 富文本编辑器集成包。AiEditor 是一个强大的 Web 富文本编辑器。
 
 ## 安装
 
@@ -61,11 +61,10 @@ AIEDITOR_CONFIG = {
 - 支持文件上传
 - 支持自定义配置
 - Django Admin 集成
-- 支持 markdown 语法
 
 ## 文档
 
-完整文档请访问：[https://django-aieditor.readthedocs.io/](https://django-aieditor.readthedocs.io/)
+完整文档请访问：[https://github.com/mircool/django-aieditor](https://github.com/mircool/django-aieditor)
 
 ## License
 
