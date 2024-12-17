@@ -7,13 +7,11 @@
             "{{ key }}": {{ value|safe }},
         {% endfor %}
     };
-</script>
-<script type="module">
-    import { AiEditor } from "{% static 'django_aieditor/js/index.js' %}";
+    
     document.addEventListener('DOMContentLoaded', function() {
         const config = {
             element: document.querySelector('[name="{{ widget.name }}"]'),
-            ...window.editorConfig
+            ...editorConfig
         };
         if (config.element) {
             new AiEditor(config);

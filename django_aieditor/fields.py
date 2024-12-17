@@ -33,6 +33,7 @@ class AiEditorWidget(forms.Textarea):
         default_config = {
             'height': '400px',
             'width': '100%',
+            'mode': 'simple',  # 使用简单模式
             'toolbar': [
                 'bold', 'italic', 'strikethrough', 'underline', 'code', '|',
                 'heading', 'quote', 'unorderedList', 'orderedList', 'todoList', '|',
