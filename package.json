@@ -1,0 +1,20 @@
+{
+  "name": "django-aieditor",
+  "version": "1.0.0",
+  "description": "Django-AiEditor 是一个为 Django 框架提供的 AiEditor 富文本编辑器集成包。AiEditor 是一个强大的 Web 富文本编辑器。",
+  "main": "webpack.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aieditor": "^1.2.9",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4"
+  }
+}

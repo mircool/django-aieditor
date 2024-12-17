@@ -19,11 +19,11 @@ class AiEditorWidget(forms.Textarea):
         return forms.Media(
             css={
                 'all': (
-                    'https://unpkg.com/aieditor@latest/dist/style.css',
+                    'django_aieditor/css/aieditor.min.css',
                 )
             },
             js=(
-                'https://unpkg.com/aieditor@latest/dist/index.js',
+                'django_aieditor/js/aieditor.umd.js',
             )
         )
 
