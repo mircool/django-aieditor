@@ -2,6 +2,7 @@ from django import forms
 from django.db import models
 from django.conf import settings
 from django.contrib.admin import widgets
+import json
 
 
 class AiEditorWidget(forms.Textarea):
@@ -23,13 +24,26 @@ class AiEditorWidget(forms.Textarea):
             },
             js=(
                 'django_aieditor/js/index.js',
-                'django_aieditor/js/init.js',
             )
         )
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        context['widget']['config'] = getattr(settings, 'AIEDITOR_CONFIG', {})
+        # 获取默认配置
+        default_config = {
+            'height': '400px',
+            'width': '100%',
+            'toolbar': [
+                'bold', 'italic', 'strikethrough', 'underline', 'code', '|',
+                'heading', 'quote', 'unorderedList', 'orderedList', 'todoList', '|',
+                'link', 'image', 'table', '|',
+                'preview', 'fullscreen'
+            ]
+        }
+        # 合并用户配置
+        user_config = getattr(settings, 'AIEDITOR_CONFIG', {})
+        default_config.update(user_config)
+        context['widget']['config'] = default_config
         return context
 
 

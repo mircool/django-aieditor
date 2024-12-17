@@ -1,12 +1,22 @@
 {% load static %}
 <textarea name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
 <script>
+    // 将Django配置转换为JavaScript对象
+    var editorConfig = {
+        {% for key, value in widget.config.items %}
+            "{{ key }}": {{ value|safe }},
+        {% endfor %}
+    };
+</script>
+<script type="module">
+    import { AiEditor } from "{% static 'django_aieditor/js/index.js' %}";
     document.addEventListener('DOMContentLoaded', function() {
-        var editor = new AiEditor({
+        const config = {
             element: document.querySelector('[name="{{ widget.name }}"]'),
-            {% for key, value in widget.config.items %}
-                {{ key }}: {{ value|safe }},
-            {% endfor %}
-        });
+            ...window.editorConfig
+        };
+        if (config.element) {
+            new AiEditor(config);
+        }
     });
 </script> 

@@ -11,7 +11,7 @@ window.AIEDITOR_CONFIG = window.AIEDITOR_CONFIG || {
     upload: {
         url: '/upload/',
         headers: {
-            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
         }
     }
 }; 
