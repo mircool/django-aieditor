@@ -40,12 +40,31 @@ class AiEditorWidget(forms.Textarea):
                 'heading', 'quote', 'unorderedList', 'orderedList', 'todoList', '|',
                 'link', 'image', 'table', '|',
                 'preview', 'fullscreen'
-            ]
+            ],
+            'upload': {
+                'url': '/upload/',
+                'headers': {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            }
         }
-        # 合并用户配置
+
+        # 获取用户配置
         user_config = getattr(settings, 'AIEDITOR_CONFIG', {})
-        default_config.update(user_config)
-        context['widget']['config'] = default_config
+        
+        # 递归合并配置
+        def merge_config(default, user):
+            result = default.copy()
+            for key, value in user.items():
+                if key in result and isinstance(result[key], dict) and isinstance(value, dict):
+                    result[key] = merge_config(result[key], value)
+                else:
+                    result[key] = value
+            return result
+
+        # 合并配置
+        final_config = merge_config(default_config, user_config)
+        context['widget']['config'] = final_config
         return context
 
 

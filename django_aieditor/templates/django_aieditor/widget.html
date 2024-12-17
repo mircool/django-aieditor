@@ -30,15 +30,11 @@
             }
 
             try {
+                // 获取配置
+                const editorConfig = {{ widget.config|safe }};
                 const config = {
+                    ...editorConfig,
                     element: container,
-                    {% for key, value in widget.config.items %}
-                        {% if key == 'toolbar' %}
-                            {{ key }}: {{ value|safe }},
-                        {% else %}
-                            {{ key }}: "{{ value|safe }}",
-                        {% endif %}
-                    {% endfor %}
                     content: textarea.value || '',
                     onChange: function(editor) {
                         const content = editor.getMarkdown();
