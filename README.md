@@ -19,20 +19,16 @@ INSTALLED_APPS = [
 ]
 ```
 
-2. 在你的模板中使用：
+2. 在你的模型中使用：
 
-```html
-{% load django_aieditor %}
+```python
+from django_aieditor.fields import AiEditorModelField
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.media }}
-    {% aieditor "content" %}
-    <button type="submit">提交</button>
-</form>
+class MyModel(models.Model):
+    content = AiEditorModelField("内容")
 ```
 
-3. 在你的表单中：
+3. 在你的表单中使用：
 
 ```python
 from django_aieditor.fields import AiEditorField
@@ -47,12 +43,11 @@ class MyForm(forms.Form):
 
 ```python
 AIEDITOR_CONFIG = {
-    'height': '400px',
-    'width': '100%',
-    'toolbar': ['bold', 'italic', 'link', 'image'],
+    'toolbar': ['bold', 'italic', 'link', 'image'], # 工具栏
     'upload_url': '/upload/',  # 文件上传接口
 }
 ```
+更多配置请访问：[https://aieditor.dev/zh/](https://aieditor.dev/zh/)
 
 ## 特性
 
@@ -64,7 +59,9 @@ AIEDITOR_CONFIG = {
 
 ## 文档
 
-完整文档请访问：[https://github.com/mircool/django-aieditor](https://github.com/mircool/django-aieditor)
+aiEditor 文档请访问：[https://aieditor.dev/zh/](https://aieditor.dev/zh/)
+
+Django-AiEditor 文档请访问：[https://github.com/mircool/django-aieditor](https://github.com/mircool/django-aieditor)
 
 ## License
 
