@@ -46,3 +46,5 @@ node_modules/
 coverage/
 .coverage
 htmlcov/ 
+
+test_env

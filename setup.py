@@ -1,4 +1,8 @@
 from setuptools import setup, find_packages
+import io
+
+with io.open("README.md", encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name="django-aieditor",
@@ -7,7 +11,7 @@ setup(
     include_package_data=True,
     license="MIT",
     description="Django-AiEditor 是一个为 Django 框架提供的 AiEditor 富文本编辑器集成包。",
-    long_description=open("README.md").read(),
+    long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/mircool/django-aieditor",
     author="mircool",
