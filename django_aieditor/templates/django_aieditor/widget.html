@@ -1,29 +1,46 @@
 {% load static %}
-<textarea name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
-<div id="aieditor-{{ widget.name }}"></div>
+<div class="aieditor-wrapper" style="margin-bottom: 10px;">
+    <textarea name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} style="display: none;">{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
+    <div id="aieditor-{{ widget.name }}" class="aieditor-container"></div>
+</div>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const textarea = document.querySelector('[name="{{ widget.name }}"]');
-        const container = document.getElementById('aieditor-{{ widget.name }}');
-        if (textarea && container && window.AiEditor) {
-            const config = {
-                element: container,
-                {% for key, value in widget.config.items %}
-                    {% if key == 'toolbar' %}
-                        {{ key }}: {{ value|safe }},
-                    {% else %}
-                        {{ key }}: "{{ value|safe }}",
-                    {% endif %}
-                {% endfor %}
-                content: textarea.value
-            };
-            const editor = new window.AiEditor(config);
-            // 同步内容到textarea
-            editor.on('change', () => {
-                textarea.value = editor.getValue();
-            });
-            // 隐藏原始textarea
-            textarea.style.display = 'none';
+    (function() {
+        function initEditor() {
+            const textarea = document.querySelector('[name="{{ widget.name }}"]');
+            const container = document.getElementById('aieditor-{{ widget.name }}');
+            
+            if (!textarea || !container || !window.AiEditor) {
+                console.warn('AiEditor initialization failed: missing required elements or AiEditor not loaded');
+                return;
+            }
+
+            try {
+                const config = {
+                    element: container,
+                    {% for key, value in widget.config.items %}
+                        {% if key == 'toolbar' %}
+                            {{ key }}: {{ value|safe }},
+                        {% else %}
+                            {{ key }}: "{{ value|safe }}",
+                        {% endif %}
+                    {% endfor %}
+                    content: textarea.value || '',
+                    onChange: function(editor) {
+                        textarea.value = editor.getValue();
+                    }
+                };
+
+                new window.AiEditor(config);
+            } catch (error) {
+                console.error('AiEditor initialization error:', error);
+                textarea.style.display = 'block';
+            }
         }
-    });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initEditor);
+        } else {
+            initEditor();
+        }
+    })();
 </script> 
