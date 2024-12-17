@@ -32,10 +32,11 @@ class AiEditorWidget(forms.Textarea):
         context = super().get_context(name, value, attrs)
         # 获取默认配置
         default_config = {
-            'height': '400px',
-            'width': '100%',
+            'minHeight': '400px',  # 最小高度
+            'maxHeight': '800px',  # 最大高度
+            'placeholder': '请输入内容...',  # 占位提示文本
             'mode': 'simple',  # 使用简单模式
-            'toolbar': [
+            'toolbarKeys': [
                 'bold', 'italic', 'strikethrough', 'underline', 'code', '|',
                 'heading', 'quote', 'unorderedList', 'orderedList', 'todoList', '|',
                 'link', 'image', 'table', '|',
