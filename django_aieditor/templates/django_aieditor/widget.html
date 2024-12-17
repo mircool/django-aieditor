@@ -1,0 +1,12 @@
+{% load static %}
+<textarea name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var editor = new AiEditor({
+            element: document.querySelector('[name="{{ widget.name }}"]'),
+            {% for key, value in widget.config.items %}
+                {{ key }}: {{ value|safe }},
+            {% endfor %}
+        });
+    });
+</script> 
