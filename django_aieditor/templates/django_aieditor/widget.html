@@ -41,7 +41,16 @@
                     {% endfor %}
                     content: textarea.value || '',
                     onChange: function(editor) {
-                        textarea.value = editor.getValue();
+                        const content = editor.getMarkdown();
+                        textarea.value = content;
+                        // 处理required验证
+                        if (textarea.required) {
+                            if (!content.trim()) {
+                                container.classList.add('field-required');
+                            } else {
+                                container.classList.remove('field-required');
+                            }
+                        }
                     }
                 };
 
@@ -50,28 +59,15 @@
                 // 在表单提交前同步内容
                 if (form) {
                     form.addEventListener('submit', function() {
-                        textarea.value = editor.getValue();
+                        textarea.value = editor.getMarkdown();
                     });
                 }
 
-                // 监听required验证
-                if (textarea.required) {
-                    container.addEventListener('click', function() {
-                        if (!editor.getValue().trim()) {
-                            container.classList.add('field-required');
-                        } else {
-                            container.classList.remove('field-required');
-                        }
-                    });
-
-                    editor.on('change', function() {
-                        if (!editor.getValue().trim()) {
-                            container.classList.add('field-required');
-                        } else {
-                            container.classList.remove('field-required');
-                        }
-                    });
+                // 初始required验证
+                if (textarea.required && !textarea.value.trim()) {
+                    container.classList.add('field-required');
                 }
+
             } catch (error) {
                 console.error('AiEditor initialization error:', error);
                 textarea.style.display = 'block';

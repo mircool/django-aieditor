@@ -24,6 +24,7 @@ class AiEditorWidget(forms.Textarea):
             },
             js=(
                 'django_aieditor/js/aieditor.umd.js',
+                'django_aieditor/js/init.js',
             )
         )
 
