@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 from django.conf import settings
+from django.contrib.admin import widgets
 
 
 class AiEditorWidget(forms.Textarea):
@@ -17,11 +18,11 @@ class AiEditorWidget(forms.Textarea):
         return forms.Media(
             css={
                 'all': (
-                    'django_aieditor/css/aieditor.min.css',
+                    'django_aieditor/css/style.css',
                 )
             },
             js=(
-                'django_aieditor/js/aieditor.min.js',
+                'django_aieditor/js/index.js',
                 'django_aieditor/js/init.js',
             )
         )
@@ -30,6 +31,10 @@ class AiEditorWidget(forms.Textarea):
         context = super().get_context(name, value, attrs)
         context['widget']['config'] = getattr(settings, 'AIEDITOR_CONFIG', {})
         return context
+
+
+class AiEditorAdminWidget(AiEditorWidget, widgets.AdminTextareaWidget):
+    pass
 
 
 class AiEditorField(forms.CharField):
@@ -41,6 +46,8 @@ class AiEditorField(forms.CharField):
 
 class AiEditorModelField(models.TextField):
     def formfield(self, **kwargs):
-        defaults = {'form_class': AiEditorField}
-        defaults.update(kwargs)
-        return super().formfield(**defaults) 
+        if kwargs.get('widget') == widgets.AdminTextareaWidget:
+            kwargs['widget'] = AiEditorAdminWidget
+        else:
+            kwargs['widget'] = AiEditorWidget
+        return super().formfield(**kwargs) 
