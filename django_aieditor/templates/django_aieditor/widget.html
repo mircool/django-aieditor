@@ -1,16 +1,29 @@
 {% load static %}
 <textarea name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
-<script type="module">
-    import { AiEditor } from 'https://unpkg.com/aieditor@latest/dist/index.js';
+<div id="aieditor-{{ widget.name }}"></div>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
-        const config = {
-            element: document.querySelector('[name="{{ widget.name }}"]'),
-            {% for key, value in widget.config.items %}
-                {{ key }}: {{ value|safe }},
-            {% endfor %}
-        };
-        if (config.element) {
-            new AiEditor(config);
+        const textarea = document.querySelector('[name="{{ widget.name }}"]');
+        const container = document.getElementById('aieditor-{{ widget.name }}');
+        if (textarea && container && window.AiEditor) {
+            const config = {
+                element: container,
+                {% for key, value in widget.config.items %}
+                    {% if key == 'toolbar' %}
+                        {{ key }}: {{ value|safe }},
+                    {% else %}
+                        {{ key }}: "{{ value|safe }}",
+                    {% endif %}
+                {% endfor %}
+                content: textarea.value
+            };
+            const editor = new window.AiEditor(config);
+            // 同步内容到textarea
+            editor.on('change', () => {
+                textarea.value = editor.getValue();
+            });
+            // 隐藏原始textarea
+            textarea.style.display = 'none';
         }
     });
 </script> 
