@@ -32,15 +32,15 @@ class AiEditorWidget(forms.Textarea):
         context = super().get_context(name, value, attrs)
         # 获取默认配置
         default_config = {
-            'minHeight': '400px',  # 最小高度
-            'maxHeight': '800px',  # 最大高度
             'placeholder': '请输入内容...',  # 占位提示文本
-            'mode': 'simple',  # 使用简单模式
-            'toolbarKeys': [
-                'bold', 'italic', 'strikethrough', 'underline', 'code', '|',
-                'heading', 'quote', 'unorderedList', 'orderedList', 'todoList', '|',
-                'link', 'image', 'table', '|',
-                'preview', 'fullscreen'
+            'toolbarKeys': ["undo", "redo", "brush", "eraser",
+                "|", "heading", "font-family", "font-size",
+                "|", "bold", "italic", "underline", "strike", "link", "code", "subscript", "superscript", "hr", "todo", "emoji",
+                "|", "highlight", "font-color",
+                "|", "align", "line-height",
+                "|", "bullet-list", "ordered-list", "indent-decrease", "indent-increase", "break",
+                "|", "image", "video", "attachment", "quote", "code-block", "table",
+                "|", "source-code", "printer", "fullscreen", "ai"
             ],
             'upload': {
                 'url': '/upload/',
