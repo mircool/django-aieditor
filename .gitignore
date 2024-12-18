@@ -20,32 +20,26 @@ wheels/
 .installed.cfg
 *.egg
 
-# Django
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-media/
-
-# Virtual Environment
-.env
-.venv
-env/
-venv/
-ENV/
+# PyPI
+.pypirc
 
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
-.DS_Store
 
-# Project specific
+# Django
+*.log
+local_settings.py
+db.sqlite3
+media/
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+test_env/
 node_modules/
-coverage/
-.coverage
-htmlcov/ 
-
-test_env
-.pypirc
