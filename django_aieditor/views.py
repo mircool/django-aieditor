@@ -20,13 +20,16 @@ def upload_image(request):
             # 获取完整URL
             file_url = settings.MEDIA_URL + path
             
+            # 返回AiEditor要求的格式
             return JsonResponse({
-                'success': True,
-                'url': file_url,
-                'message': '上传成功'
+                'errorCode': 0,
+                'data': {
+                    'src': file_url,
+                    'alt': image.name
+                }
             })
     
     return JsonResponse({
-        'success': False,
+        'errorCode': 1,
         'message': '上传失败'
     }) 

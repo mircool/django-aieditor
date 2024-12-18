@@ -44,13 +44,32 @@ class AiEditorWidget(forms.Textarea):
                 "|", "source-code", "printer", "fullscreen", "ai"
             ],
             'image': {
-                'server': reverse('django_aieditor:upload_image'),  # 上传接口地址
-                'type': 'default',  # 使用默认上传方式,而不是base64
-                'fieldName': 'file',  # 上传字段名
+                'uploadUrl': reverse('django_aieditor:upload_image'),  # 上传接口地址
+                'allowBase64': False,  # 禁用base64
+                'defaultSize': 350,  # 默认图片宽度
+                'uploadFormName': 'file',  # 上传字段名
                 'maxFileSize': 5 * 1024 * 1024,  # 限制文件大小为5MB
                 'headers': {
                     'X-CSRFToken': '{{ csrf_token }}'
-                }
+                },
+                'uploaderEvent': {
+                    'onUploadBefore': 'function(file, uploadUrl, headers) { return true; }',
+                    'onSuccess': '''function(file, response) { 
+                        if(response.success) {
+                            return {
+                                errorCode: 0,
+                                data: {
+                                    src: response.url,
+                                    alt: file.name
+                                }
+                            }
+                        }
+                        return false;
+                    }''',
+                    'onFailed': 'function(file, response) { console.error("Upload failed:", response); }',
+                    'onError': 'function(file, error) { console.error("Upload error:", error); }'
+                },
+                'bubbleMenuItems': ["AlignLeft", "AlignCenter", "AlignRight", "delete"]
             }
         }
 
