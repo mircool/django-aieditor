@@ -2,6 +2,7 @@ from django import forms
 from django.db import models
 from django.conf import settings
 from django.contrib.admin import widgets
+from django.urls import reverse
 import json
 
 
@@ -42,8 +43,11 @@ class AiEditorWidget(forms.Textarea):
                 "|", "image", "video", "attachment", "quote", "code-block", "table",
                 "|", "source-code", "printer", "fullscreen", "ai"
             ],
-            'upload': {
-                'url': '/upload/',
+            'image': {
+                'server': reverse('django_aieditor:upload_image'),  # 上传接口地址
+                'type': 'default',  # 使用默认上传方式,而不是base64
+                'fieldName': 'file',  # 上传字段名
+                'maxFileSize': 5 * 1024 * 1024,  # 限制文件大小为5MB
                 'headers': {
                     'X-CSRFToken': '{{ csrf_token }}'
                 }
@@ -65,7 +69,9 @@ class AiEditorWidget(forms.Textarea):
 
         # 合并配置
         final_config = merge_config(default_config, user_config)
-        context['widget']['config'] = final_config
+        
+        # 将配置转换为JSON字符串,确保正确序列化
+        context['widget']['config'] = json.dumps(final_config)
         return context
 
 

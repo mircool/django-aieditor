@@ -19,7 +19,33 @@ INSTALLED_APPS = [
 ]
 ```
 
-2. 在你的模型中使用：
+2. 配置上传URL路由，在项目的urls.py中添加：
+
+```python
+from django.urls import path, include
+
+urlpatterns = [
+    ...
+    path('aieditor/', include('django_aieditor.urls')),
+]
+```
+
+3. 配置媒体文件（如果使用本地存储）：
+
+```python
+# settings.py
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 开发环境下的urls.py
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
+
+4. 在你的模型中使用：
 
 ```python
 from django_aieditor.fields import AiEditorModelField
@@ -28,7 +54,7 @@ class MyModel(models.Model):
     content = AiEditorModelField("内容")
 ```
 
-3. 在你的表单中使用：
+5. 在你的表单中使用：
 
 ```python
 from django_aieditor.fields import AiEditorField
@@ -44,7 +70,6 @@ class MyForm(forms.Form):
 ```python
 AIEDITOR_CONFIG = {
     'toolbar': ['bold', 'italic', 'link', 'image'], # 工具栏
-    'upload_url': '/upload/',  # 文件上传接口
 }
 ```
 更多配置请访问：[https://aieditor.dev/zh/](https://aieditor.dev/zh/)
@@ -53,7 +78,7 @@ AIEDITOR_CONFIG = {
 
 - 完整支持 AiEditor 的所有功能
 - 简单的 Django 集成
-- 支持文件上传
+- 支持文件上传（支持本地存储和云存储）
 - 支持自定义配置
 - Django Admin 集成
 

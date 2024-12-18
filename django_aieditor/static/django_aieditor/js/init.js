@@ -9,13 +9,7 @@ window.AIEDITOR_CONFIG = window.AIEDITOR_CONFIG || {
         'heading', 'quote', 'unorderedList', 'orderedList', 'todoList', '|',
         'link', 'image', 'table', '|',
         'preview', 'fullscreen'
-    ],
-    upload: {
-        url: '/upload/',
-        headers: {
-            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
-        }
-    }
+    ]
 }; 
 
 // 确保AiEditor全局可用
