@@ -7,6 +7,9 @@ on:
     tags:
       - 'v*'  # 推送tag时触发
 
+permissions:
+  contents: write  # 添加写入权限
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
