@@ -30,22 +30,8 @@ urlpatterns = [
 ]
 ```
 
-3. 配置媒体文件（如果使用本地存储）：
 
-```python
-# settings.py
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# 开发环境下的urls.py
-from django.conf import settings
-from django.conf.urls.static import static
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-```
-
-4. 在你的模型中使用：
+3. 在你的模型中使用：
 
 ```python
 from django_aieditor.fields import AiEditorModelField
@@ -54,7 +40,7 @@ class MyModel(models.Model):
     content = AiEditorModelField("内容")
 ```
 
-5. 在你的表单中使用：
+4. 在你的表单中使用：
 
 ```python
 from django_aieditor.fields import AiEditorField
