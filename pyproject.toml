@@ -11,6 +11,10 @@ authors = [
 description = "Django-AiEditor 是一个为 Django 框架提供的 AiEditor 富文本编辑器集成包。"
 readme = "README.md"
 requires-python = ">=3.7"
+license = {text = "MIT"}
+dependencies = [
+    "Django>=3.2",
+]
 classifiers = [
     "Environment :: Web Environment",
     "Framework :: Django",
