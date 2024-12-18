@@ -51,25 +51,7 @@ class AiEditorWidget(forms.Textarea):
                 'maxFileSize': 5 * 1024 * 1024,  # 限制文件大小为5MB
                 'headers': {
                     'X-CSRFToken': '{{ csrf_token }}'
-                },
-                'uploaderEvent': {
-                    'onUploadBefore': 'function(file, uploadUrl, headers) { return true; }',
-                    'onSuccess': '''function(file, response) { 
-                        if(response.success) {
-                            return {
-                                errorCode: 0,
-                                data: {
-                                    src: response.url,
-                                    alt: file.name
-                                }
-                            }
-                        }
-                        return false;
-                    }''',
-                    'onFailed': 'function(file, response) { console.error("Upload failed:", response); }',
-                    'onError': 'function(file, error) { console.error("Upload error:", error); }'
-                },
-                'bubbleMenuItems': ["AlignLeft", "AlignCenter", "AlignRight", "delete"]
+                }
             }
         }
 
