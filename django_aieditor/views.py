@@ -17,8 +17,8 @@ def upload_image(request):
             # 保存文件
             path = default_storage.save(f'aieditor/images/{filename}', image)
             
-            # 获取完整URL
-            file_url = settings.MEDIA_URL + path
+            # 获取完整URL (使用storage的url方法)
+            file_url = default_storage.url(path)
             
             # 返回AiEditor要求的格式
             return JsonResponse({
