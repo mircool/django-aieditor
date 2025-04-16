@@ -55,7 +55,7 @@ class MyForm(forms.Form):
 
 ```python
 AIEDITOR_CONFIG = {
-    'toolbar': ['bold', 'italic', 'link', 'image'], # 工具栏
+    'toolbarKeys': ['bold', 'italic', 'link', 'image'], # 工具栏
 }
 ```
 更多配置请访问：[https://aieditor.dev/zh/](https://aieditor.dev/zh/)
@@ -69,6 +69,10 @@ AIEDITOR_CONFIG = {
 - Django Admin 集成
 
 ## 更新日志
+
+### v1.0.14 (2025-04-16)
+- 修复在settings.py中配置不生效的问题
+- 更新文档，添加正确的配置示例
 
 ### v1.0.13 (2025-04-16)
 - 升级 AiEditor 到 1.3.6 版本
