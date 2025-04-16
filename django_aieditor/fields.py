@@ -40,24 +40,31 @@ class AiEditorWidget(forms.Textarea):
                 "|", "highlight", "font-color",
                 "|", "align", "line-height",
                 "|", "bullet-list", "ordered-list", "indent-decrease", "indent-increase", "break",
-                "|", "image", "video", "attachment", "quote", "code-block", "table",
+                "|", "image", "video", "attachment", "quote", "code-block", "table", "container",
                 "|", "source-code", "printer", "fullscreen", "ai"
             ],
+            'textCounter': True,  # 显示文字计数器
+            'toolbarSize': 'medium',  # 工具栏按钮大小
             'image': {
                 'uploadUrl': reverse('django_aieditor:upload_image'),  # 上传接口地址
                 'allowBase64': False,  # 禁用base64
                 'defaultSize': 350,  # 默认图片宽度
                 'uploadFormName': 'file',  # 上传字段名
                 'maxFileSize': 5 * 1024 * 1024,  # 限制文件大小为5MB
+                'bubbleMenuEnable': True,  # 启用图片浮动菜单
                 'headers': {
                     'X-CSRFToken': '{{ csrf_token }}'
                 }
+            },
+            'htmlPasteConfig': {
+                'removeEmptyParagraphs': True,  # 移除空段落
+                'clearLineBreaks': True  # 清除换行符
             }
         }
 
         # 获取用户配置
         user_config = getattr(settings, 'AIEDITOR_CONFIG', {})
-        
+
         # 递归合并配置
         def merge_config(default, user):
             result = default.copy()
@@ -70,7 +77,7 @@ class AiEditorWidget(forms.Textarea):
 
         # 合并配置
         final_config = merge_config(default_config, user_config)
-        
+
         # 将配置转换为JSON字符串,确保正确序列化
         context['widget']['config'] = json.dumps(final_config)
         return context
@@ -93,4 +100,4 @@ class AiEditorModelField(models.TextField):
             kwargs['widget'] = AiEditorAdminWidget
         else:
             kwargs['widget'] = AiEditorWidget
-        return super().formfield(**kwargs) 
+        return super().formfield(**kwargs)

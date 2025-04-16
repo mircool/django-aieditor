@@ -68,6 +68,15 @@ AIEDITOR_CONFIG = {
 - 支持自定义配置
 - Django Admin 集成
 
+## 更新日志
+
+### v1.0.13 (2025-04-16)
+- 升级 AiEditor 到 1.3.6 版本
+- 新增高亮块功能支持
+- 新增文字计数器功能
+- 新增工具栏按钮大小调整功能
+- 优化粘贴配置，增强粘贴体验
+
 ## 文档
 
 aiEditor 文档请访问：[https://aieditor.dev/zh/](https://aieditor.dev/zh/)
@@ -76,4 +85,4 @@ Django-AiEditor 文档请访问：[https://github.com/mircool/django-aieditor](h
 
 ## License
 
-MIT License 
+MIT License
